@@ -138,19 +138,19 @@ export const Navbar: React.FC = () => {
             {/* INTERACTIVE AURORA / DARK / LIGHT THEME TOGGLE BUTTON */}
             <button
               onClick={toggleTheme}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-[#0d3f26] text-slate-700 dark:text-emerald-100 hover:bg-slate-200 dark:hover:bg-[#135433] border border-slate-200 dark:border-[#1b5e39] text-xs font-bold transition-all cursor-pointer shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-[#180e29] text-slate-700 dark:text-purple-100 hover:bg-purple-100 dark:hover:bg-[#3b0764] border border-purple-200 dark:border-[#4c1d95] text-xs font-bold transition-all cursor-pointer shadow-sm"
               aria-label="Toggle Theme"
               title={`Current Theme: ${theme.toUpperCase()}. Click to switch theme.`}
             >
               {theme === 'aurora' ? (
                 <>
-                  <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
-                  <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent font-extrabold">Aurora</span>
+                  <Sparkles className="w-4 h-4 text-purple-400 animate-pulse" />
+                  <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent font-extrabold">Aurora</span>
                 </>
               ) : theme === 'dark' ? (
                 <>
-                  <Moon className="w-4 h-4 text-emerald-400" />
-                  <span>Dark</span>
+                  <Moon className="w-4 h-4 text-purple-300" />
+                  <span>Amethyst</span>
                 </>
               ) : (
                 <>
@@ -354,28 +354,28 @@ export const Navbar: React.FC = () => {
 
 
             {/* Mobile Theme Toggle */}
-            <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-[#1b5e39]">
+            <div className="flex items-center gap-2 pt-2 border-t border-purple-200 dark:border-[#4c1d95]">
               <button
                 onClick={() => {
                   toggleTheme();
                   setIsMenuOpen(false);
                 }}
-                className="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-[#0d3f26] text-slate-700 dark:text-emerald-100 font-bold text-xs flex items-center justify-center gap-2 border border-slate-200 dark:border-[#1b5e39] cursor-pointer"
+                className="w-full py-2.5 px-3 rounded-xl bg-purple-50 dark:bg-[#180e29] text-slate-700 dark:text-purple-100 font-bold text-xs flex items-center justify-center gap-2 border border-purple-200 dark:border-[#4c1d95] cursor-pointer"
               >
                 {theme === 'aurora' ? (
                   <>
-                    <Sparkles className="w-4 h-4 text-cyan-400" />
-                    <span>Theme: Aurora Borealis</span>
+                    <Sparkles className="w-4 h-4 text-purple-400" />
+                    <span>Theme: Aurora Glow</span>
                   </>
                 ) : theme === 'dark' ? (
                   <>
-                    <Moon className="w-4 h-4 text-emerald-400" />
-                    <span>Theme: Dark Forest</span>
+                    <Moon className="w-4 h-4 text-purple-300" />
+                    <span>Theme: Dark Amethyst</span>
                   </>
                 ) : (
                   <>
                     <Sun className="w-4 h-4 text-amber-500" />
-                    <span>Theme: Light Mode</span>
+                    <span>Theme: Light Purple</span>
                   </>
                 )}
               </button>

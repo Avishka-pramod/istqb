@@ -36,7 +36,11 @@ const MainApp: React.FC = () => {
   return (
     <div
       className={`min-h-screen transition-colors duration-200 ${
-        theme === 'dark' ? 'bg-[#092c1a] text-emerald-50 dark' : 'bg-[#f2f9f4] text-slate-900 light'
+        theme === 'dark'
+          ? 'bg-[#180e29] text-purple-50 dark'
+          : theme === 'aurora'
+          ? 'bg-[#0f0a1e] text-purple-50 aurora'
+          : 'bg-[#faf5ff] text-slate-900 light'
       }`}
     >
       <Navbar />

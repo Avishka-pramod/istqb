@@ -93,34 +93,34 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       onClick={onClose}
     >
       <div 
-        className="w-full max-w-md bg-white dark:bg-[#0d3f26] rounded-3xl shadow-2xl border border-slate-200 dark:border-[#1b5e39] overflow-hidden transform transition-all"
+        className="w-full max-w-md bg-white dark:bg-[#24123e] rounded-3xl shadow-2xl border border-purple-200 dark:border-[#4c1d95] overflow-hidden transform transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="relative px-6 pt-6 pb-4 border-b border-slate-200 dark:border-[#1b5e39] bg-gradient-to-b from-emerald-50/50 to-transparent dark:from-[#092c1a]/80 dark:to-transparent">
+        <div className="relative px-6 pt-6 pb-4 border-b border-purple-200 dark:border-[#4c1d95] bg-gradient-to-b from-purple-50/50 to-transparent dark:from-[#180e29]/80 dark:to-transparent">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#0f4c2e] transition-colors"
+            className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-purple-100 dark:hover:bg-[#3b0764] transition-colors"
             aria-label="Close authentication modal"
           >
             <X className="w-5 h-5" />
           </button>
 
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#105e38] to-[#16804d] text-white flex items-center justify-center font-black text-base shadow-md border border-emerald-400/20">
-              <Sparkles className="w-5 h-5 text-emerald-300" />
+            <div className="w-10 h-10 rounded-2xl bg-purple-600 text-white flex items-center justify-center font-black text-base shadow-md border border-purple-400/20">
+              <Sparkles className="w-5 h-5 text-purple-200" />
             </div>
             <div>
               <h3 className="font-extrabold text-slate-900 dark:text-white text-lg tracking-tight">
                 Welcome to ISTQB Portal
               </h3>
-              <p className="text-xs font-medium text-emerald-700 dark:text-[#9ed4b3]">
+              <p className="text-xs font-medium text-purple-700 dark:text-[#c084fc]">
                 CTFL v4.0 Exam Simulator & Analytics
               </p>
             </div>
           </div>
           
-          <p className="text-xs text-slate-500 dark:text-emerald-100/70 mt-1">
+          <p className="text-xs text-slate-500 dark:text-purple-200/70 mt-1">
             {mode === 'login' 
               ? 'Sign in to access your practice history, track score analytics, and save your progress.'
               : 'Create your account to unlock personalized CTFL exam simulations and detailed chapter breakdown.'}
@@ -128,14 +128,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         </div>
 
         {/* Tab Selector */}
-        <div className="grid grid-cols-2 p-1.5 bg-slate-100 dark:bg-[#092c1a] border-b border-slate-200 dark:border-[#1b5e39] text-xs font-extrabold">
+        <div className="grid grid-cols-2 p-1.5 bg-purple-50 dark:bg-[#180e29] border-b border-purple-200 dark:border-[#4c1d95] text-xs font-extrabold">
           <button
             type="button"
             onClick={() => setMode('login')}
             className={`py-2 rounded-xl transition-all ${
               mode === 'login'
-                ? 'bg-white dark:bg-[#0d3f26] text-emerald-800 dark:text-emerald-300 shadow-sm border border-slate-200 dark:border-[#1b5e39]'
-                : 'text-slate-600 dark:text-[#9ed4b3] hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-white dark:bg-[#24123e] text-purple-900 dark:text-purple-200 shadow-sm border border-purple-200 dark:border-[#4c1d95]'
+                : 'text-slate-600 dark:text-[#c084fc] hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             Log In
@@ -145,8 +145,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             onClick={() => setMode('signup')}
             className={`py-2 rounded-xl transition-all ${
               mode === 'signup'
-                ? 'bg-white dark:bg-[#0d3f26] text-emerald-800 dark:text-emerald-300 shadow-sm border border-slate-200 dark:border-[#1b5e39]'
-                : 'text-slate-600 dark:text-[#9ed4b3] hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-white dark:bg-[#24123e] text-purple-900 dark:text-purple-200 shadow-sm border border-purple-200 dark:border-[#4c1d95]'
+                : 'text-slate-600 dark:text-[#c084fc] hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             Sign Up
@@ -168,7 +168,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               type="button"
               disabled={isSocialLoading !== null}
               onClick={() => handleSocialClick('google')}
-              className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-50 dark:bg-[#092c1a] dark:hover:bg-[#0f4c2e] text-slate-700 dark:text-slate-100 font-bold text-sm border border-slate-300 dark:border-[#1b5e39] shadow-sm hover:shadow transition-all flex items-center justify-center gap-3 cursor-pointer group disabled:opacity-50"
+              className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-purple-50 dark:bg-[#180e29] dark:hover:bg-[#3b0764] text-slate-700 dark:text-slate-100 font-bold text-sm border border-purple-200 dark:border-[#4c1d95] shadow-sm hover:shadow transition-all flex items-center justify-center gap-3 cursor-pointer group disabled:opacity-50"
             >
               <GoogleIcon />
               <span className="group-hover:scale-[1.01] transition-transform">
@@ -180,7 +180,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               type="button"
               disabled={isSocialLoading !== null}
               onClick={() => handleSocialClick('facebook')}
-              className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-50 dark:bg-[#092c1a] dark:hover:bg-[#0f4c2e] text-slate-700 dark:text-slate-100 font-bold text-sm border border-slate-300 dark:border-[#1b5e39] shadow-sm hover:shadow transition-all flex items-center justify-center gap-3 cursor-pointer group disabled:opacity-50"
+              className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-purple-50 dark:bg-[#180e29] dark:hover:bg-[#3b0764] text-slate-700 dark:text-slate-100 font-bold text-sm border border-purple-200 dark:border-[#4c1d95] shadow-sm hover:shadow transition-all flex items-center justify-center gap-3 cursor-pointer group disabled:opacity-50"
             >
               <FacebookIcon />
               <span className="group-hover:scale-[1.01] transition-transform">
@@ -191,18 +191,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
           {/* Divider */}
           <div className="relative flex items-center justify-center">
-            <div className="border-t border-slate-200 dark:border-[#1b5e39] w-full"></div>
-            <span className="bg-white dark:bg-[#0d3f26] px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-[#9ed4b3]/60 shrink-0">
+            <div className="border-t border-purple-200 dark:border-[#4c1d95] w-full"></div>
+            <span className="bg-white dark:bg-[#24123e] px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-[#c084fc]/60 shrink-0">
               or continue with email
             </span>
-            <div className="border-t border-slate-200 dark:border-[#1b5e39] w-full"></div>
+            <div className="border-t border-purple-200 dark:border-[#4c1d95] w-full"></div>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-3.5">
             {mode === 'signup' && (
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-[#9ed4b3] mb-1">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-[#c084fc] mb-1">
                   Full Name
                 </label>
                 <div className="relative">
@@ -213,14 +213,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Alex Student"
-                    className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl bg-slate-50 dark:bg-[#092c1a] border border-slate-200 dark:border-[#185533] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-emerald-200/40 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-purple-300/40 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
                   />
                 </div>
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-[#9ed4b3] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-[#c084fc] mb-1">
                 Email Address
               </label>
               <div className="relative">
@@ -231,13 +231,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="student@istqb.edu"
-                  className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl bg-slate-50 dark:bg-[#092c1a] border border-slate-200 dark:border-[#185533] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-emerald-200/40 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-purple-300/40 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-[#9ed4b3] mb-1">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-[#c084fc] mb-1">
                 Password
               </label>
               <div className="relative">
@@ -248,7 +248,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl bg-slate-50 dark:bg-[#092c1a] border border-slate-200 dark:border-[#185533] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-emerald-200/40 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-purple-300/40 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
                 />
               </div>
             </div>
@@ -256,7 +256,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <div className="pt-1">
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-[#105e38] hover:bg-[#147244] text-white font-extrabold text-sm shadow-md border border-[#1b7a49] transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
+                className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-sm shadow-md border border-purple-500 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
               >
                 <span>{mode === 'login' ? 'Sign In to Account' : 'Complete Account Registration'}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -265,18 +265,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </form>
 
           {/* Footer Info & Guest Option */}
-          <div className="pt-1 border-t border-slate-100 dark:border-[#1b5e39]/50 text-center space-y-2">
-            <p className="text-[11px] text-slate-500 dark:text-[#9ed4b3] flex items-center justify-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" /> 
+          <div className="pt-1 border-t border-purple-100 dark:border-[#4c1d95]/50 text-center space-y-2">
+            <p className="text-[11px] text-slate-500 dark:text-[#c084fc] flex items-center justify-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-purple-600 dark:text-purple-300 shrink-0" /> 
               Secure & instant session setup
             </p>
 
             <button
               type="button"
               onClick={onClose}
-              className="text-xs font-semibold text-slate-400 hover:text-slate-600 dark:text-[#9ed4b3]/70 dark:hover:text-white underline transition-colors cursor-pointer"
+              className="text-xs font-bold text-slate-600 dark:text-purple-200 hover:text-purple-600 dark:hover:text-white underline underline-offset-4 cursor-pointer"
             >
-              Continue as Guest (Skip for now)
+              Continue as Guest (No Login Required)
             </button>
           </div>
         </div>

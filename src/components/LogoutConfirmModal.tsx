@@ -27,7 +27,7 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
         <div className="relative p-6 bg-gradient-to-b from-amber-50 to-transparent dark:from-amber-950/30 dark:to-transparent border-b border-amber-200/60 dark:border-amber-900/30">
           <button
             onClick={onCancel}
-            className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#0f4c2e] transition-colors"
+            className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-purple-100 dark:hover:bg-[#3b0764] transition-colors"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -50,11 +50,11 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
 
         {/* Modal Body */}
         <div className="p-6 space-y-4 text-xs">
-          <p className="text-slate-600 dark:text-[#9ed4b3] leading-relaxed">
+          <p className="text-slate-600 dark:text-[#c084fc] leading-relaxed">
             You are currently taking an active ISTQB CTFL v4.0 practice exam. Logging out now will immediately terminate your session and wipe out:
           </p>
 
-          <ul className="space-y-2 p-3 rounded-2xl bg-slate-50 dark:bg-[#092c1a] border border-slate-200/80 dark:border-[#1b5e39] text-slate-700 dark:text-emerald-100 font-semibold">
+          <ul className="space-y-2 p-3 rounded-2xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] text-slate-700 dark:text-purple-100 font-semibold">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
               All selected answers and question progress
@@ -69,17 +69,17 @@ export const LogoutConfirmModal: React.FC<LogoutConfirmModalProps> = ({
             </li>
           </ul>
 
-          <p className="text-[11px] font-bold text-slate-500 dark:text-emerald-300/70">
+          <p className="text-[11px] font-bold text-slate-500 dark:text-purple-200/70">
             Are you sure you want to log out and return to the main dashboard?
           </p>
         </div>
 
         {/* Modal Footer Actions */}
-        <div className="p-4 bg-slate-50/80 dark:bg-[#092c1a]/80 border-t border-slate-200 dark:border-[#1b5e39] flex items-center justify-end gap-3">
+        <div className="p-4 bg-purple-50/50 dark:bg-[#180e29]/80 border-t border-purple-200 dark:border-[#4c1d95] flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-[#1b5e39] text-slate-700 dark:text-emerald-200 font-extrabold text-xs hover:bg-slate-100 dark:hover:bg-[#0f4c2e] transition-all cursor-pointer"
+            className="px-4 py-2.5 rounded-xl border border-purple-200 dark:border-[#4c1d95] text-slate-700 dark:text-purple-200 font-extrabold text-xs hover:bg-purple-100 dark:hover:bg-[#3b0764] transition-all cursor-pointer"
           >
             Cancel (Resume Exam)
           </button>

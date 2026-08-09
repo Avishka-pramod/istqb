@@ -57,14 +57,14 @@ export const ReportQuestionModal: React.FC<ReportQuestionModalProps> = ({
       aria-labelledby="report-modal-title"
     >
       <div
-        className="w-full max-w-md bg-white dark:bg-[#0d3f26] rounded-3xl shadow-2xl border border-slate-200 dark:border-[#1b5e39] overflow-hidden transform transition-all"
+        className="w-full max-w-md bg-white dark:bg-[#24123e] rounded-3xl shadow-2xl border border-purple-200 dark:border-[#4c1d95] overflow-hidden transform transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="relative px-6 pt-6 pb-4 border-b border-slate-200 dark:border-[#1b5e39] bg-gradient-to-b from-amber-50/50 to-transparent dark:from-amber-950/20 dark:to-transparent">
+        <div className="relative px-6 pt-6 pb-4 border-b border-purple-200 dark:border-[#4c1d95] bg-gradient-to-b from-amber-50/50 to-transparent dark:from-amber-950/20 dark:to-transparent">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#0f4c2e] transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500"
+            className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-purple-100 dark:hover:bg-[#3b0764] transition-colors focus-visible:ring-2 focus-visible:ring-purple-500"
             aria-label="Close report modal"
           >
             <X className="w-5 h-5" />
@@ -88,11 +88,11 @@ export const ReportQuestionModal: React.FC<ReportQuestionModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs">
           {submitted ? (
-            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 font-extrabold flex items-center gap-3 animate-fadeIn">
-              <Check className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <div className="p-4 rounded-2xl bg-purple-50 dark:bg-[#3b0764] border border-purple-300 dark:border-[#4c1d95] text-purple-900 dark:text-purple-200 font-extrabold flex items-center gap-3 animate-fadeIn">
+              <Check className="w-5 h-5 text-purple-600 dark:text-purple-300 shrink-0" />
               <div>
                 <p className="text-sm font-bold">Feedback Submitted!</p>
-                <p className="text-[11px] font-medium text-emerald-700 dark:text-emerald-300/80">
+                <p className="text-[11px] font-medium text-purple-700 dark:text-purple-200/80">
                   Thank you for helping improve CTFL test quality.
                 </p>
               </div>
@@ -100,15 +100,15 @@ export const ReportQuestionModal: React.FC<ReportQuestionModalProps> = ({
           ) : (
             <>
               {/* Question Preview Snippet */}
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-[#092c1a] border border-slate-200 dark:border-[#1b5e39]">
-                <p className="font-bold text-slate-700 dark:text-emerald-100 line-clamp-2">
+              <div className="p-3 rounded-xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95]">
+                <p className="font-bold text-slate-700 dark:text-purple-100 line-clamp-2">
                   "{question.question}"
                 </p>
               </div>
 
               {/* Category */}
               <div>
-                <label className="block font-extrabold uppercase tracking-wider text-slate-600 dark:text-[#9ed4b3] mb-1.5">
+                <label className="block font-extrabold uppercase tracking-wider text-slate-600 dark:text-[#c084fc] mb-1.5">
                   Issue Type
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -125,7 +125,7 @@ export const ReportQuestionModal: React.FC<ReportQuestionModalProps> = ({
                       className={`py-2 px-3 rounded-xl border text-left font-bold transition-all cursor-pointer ${
                         category === cat.id
                           ? 'bg-amber-50 dark:bg-amber-500/20 border-amber-400 text-amber-900 dark:text-amber-200 shadow-sm'
-                          : 'bg-slate-50 dark:bg-[#092c1a] border-slate-200 dark:border-[#1b5e39] text-slate-600 dark:text-[#9ed4b3]'
+                          : 'bg-purple-50/50 dark:bg-[#180e29] border-purple-200 dark:border-[#4c1d95] text-slate-600 dark:text-[#c084fc]'
                       }`}
                     >
                       {cat.label}
@@ -136,7 +136,7 @@ export const ReportQuestionModal: React.FC<ReportQuestionModalProps> = ({
 
               {/* Description */}
               <div>
-                <label className="block font-extrabold uppercase tracking-wider text-slate-600 dark:text-[#9ed4b3] mb-1.5">
+                <label className="block font-extrabold uppercase tracking-wider text-slate-600 dark:text-[#c084fc] mb-1.5">
                   Details & Description
                 </label>
                 <textarea
@@ -145,16 +145,16 @@ export const ReportQuestionModal: React.FC<ReportQuestionModalProps> = ({
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Explain why you think this question or option needs revision..."
-                  className="w-full p-3 rounded-xl bg-slate-50 dark:bg-[#092c1a] border border-slate-200 dark:border-[#185533] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-emerald-200/40 focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-xs"
+                  className="w-full p-3 rounded-xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-purple-300/40 focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-xs"
                 />
               </div>
 
               {/* Footer Actions */}
-              <div className="pt-2 border-t border-slate-100 dark:border-[#1b5e39] flex items-center justify-end gap-3">
+              <div className="pt-2 border-t border-purple-100 dark:border-[#4c1d95] flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-[#1b5e39] text-slate-700 dark:text-emerald-200 font-extrabold text-xs hover:bg-slate-100 dark:hover:bg-[#0f4c2e] transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-emerald-500"
+                  className="px-4 py-2.5 rounded-xl border border-purple-200 dark:border-[#4c1d95] text-slate-700 dark:text-purple-200 font-extrabold text-xs hover:bg-purple-50 dark:hover:bg-[#3b0764] transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500"
                 >
                   Cancel
                 </button>
