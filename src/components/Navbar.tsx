@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/95 dark:bg-[#092c1a]/95 border-b border-[#d0e8d8] dark:border-[#1b5e39] transition-colors duration-200 shadow-sm">
+      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/95 dark:bg-[#180e29]/95 border-b border-[#e9d5ff] dark:border-[#4c1d95] transition-colors duration-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Brand Header */}
           <div className="flex items-center gap-3">
@@ -63,11 +63,11 @@ export const Navbar: React.FC = () => {
             {view !== 'landing' && (
               <button
                 onClick={handleGoBack}
-                className="p-2 rounded-xl bg-slate-100 dark:bg-[#0d3f26] text-slate-800 dark:text-emerald-100 hover:bg-slate-200 dark:hover:bg-[#135433] border border-slate-200 dark:border-[#1b5e39] transition-all cursor-pointer flex items-center justify-center"
+                className="p-2 rounded-xl bg-purple-50 dark:bg-[#24123e] text-slate-800 dark:text-purple-100 hover:bg-purple-100 dark:hover:bg-[#3b0764] border border-purple-200 dark:border-[#4c1d95] transition-all cursor-pointer flex items-center justify-center"
                 title="Go Back to Previous Screen"
                 aria-label="Go Back"
               >
-                <ArrowLeft className="w-5 h-5 text-emerald-700 dark:text-emerald-400" />
+                <ArrowLeft className="w-5 h-5 text-purple-700 dark:text-purple-300" />
               </button>
             )}
 
@@ -75,19 +75,19 @@ export const Navbar: React.FC = () => {
               onClick={handleReset}
               className="flex items-center gap-3 cursor-pointer group transition-transform active:scale-98"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#105e38] text-white shadow-md flex items-center justify-center font-bold text-lg group-hover:bg-[#147244] transition-colors">
-                <Award className="w-5 h-5 text-emerald-300" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 text-white shadow-md flex items-center justify-center font-bold text-lg group-hover:from-purple-700 group-hover:to-indigo-700 transition-colors">
+                <Award className="w-5 h-5 text-purple-100" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-extrabold text-lg text-slate-900 dark:text-white tracking-tight">
-                    ISTQB <span className="text-emerald-700 dark:text-emerald-400">CTFL v4.0</span>
+                    ISTQB <span className="text-purple-600 dark:text-purple-300">CTFL v4.0</span>
                   </span>
-                  <span className="px-2 py-0.5 text-[10px] font-extrabold tracking-wider uppercase bg-emerald-100 dark:bg-[#0f4c2e] text-emerald-800 dark:text-emerald-300 rounded-md border border-emerald-300 dark:border-[#1b5e39]">
+                  <span className="px-2 py-0.5 text-[10px] font-extrabold tracking-wider uppercase bg-purple-100 dark:bg-[#3b0764] text-purple-900 dark:text-purple-200 rounded-md border border-purple-300 dark:border-[#4c1d95]">
                     Testportal
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-[#9ed4b3] hidden sm:block font-medium">
+                <p className="text-xs text-purple-700/80 dark:text-purple-300/80 hidden sm:block font-medium">
                   Certified Tester Foundation Level Practice
                 </p>
               </div>
@@ -100,7 +100,7 @@ export const Navbar: React.FC = () => {
             {view !== 'landing' && (
               <button
                 onClick={handleGoBack}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold rounded-xl bg-[#105e38] hover:bg-[#147244] text-white shadow-sm transition-all border border-[#1b7a49] cursor-pointer"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold rounded-xl bg-purple-600 hover:bg-purple-700 text-white shadow-sm transition-all border border-purple-500 cursor-pointer"
                 title="Go Back"
               >
                 <ArrowLeft className="w-4 h-4" />
@@ -114,14 +114,15 @@ export const Navbar: React.FC = () => {
                 onClick={() => setView('analytics')}
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-extrabold rounded-xl border transition-all cursor-pointer ${
                   view === 'analytics'
-                    ? 'bg-[#105e38] text-white border-[#229158] shadow-sm'
-                    : 'bg-slate-100 dark:bg-[#0d3f26] text-slate-700 dark:text-emerald-100 border-slate-200 dark:border-[#1b5e39] hover:bg-slate-200 dark:hover:bg-[#135433]'
+                    ? 'bg-purple-600 text-white border-purple-500 shadow-sm'
+                    : 'bg-purple-50 dark:bg-[#24123e] text-purple-900 dark:text-purple-100 border-purple-200 dark:border-[#4c1d95] hover:bg-purple-100 dark:hover:bg-[#3b0764]'
                 }`}
               >
-                <BarChart3 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <BarChart3 className="w-4 h-4 text-purple-600 dark:text-purple-300" />
                 <span>Analytics ({examHistory.length})</span>
               </button>
             )}
+
 
             {/* Retake Exclusions Counter */}
             {user && excludedTopics.length > 0 && (
@@ -162,49 +163,49 @@ export const Navbar: React.FC = () => {
 
             {/* PROFILE AVATAR & DROPDOWN MENU */}
             {user ? (
-              <div className="relative pl-2 border-l border-slate-200 dark:border-[#1b5e39]">
+              <div className="relative pl-2 border-l border-slate-200 dark:border-[#4c1d95]">
                 <button
                   type="button"
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center gap-2 p-1 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-[#0f4c2e] dark:hover:bg-[#135433] border border-emerald-200 dark:border-[#1b5e39] transition-all cursor-pointer shadow-sm group"
+                  className="flex items-center gap-2 p-1 rounded-2xl bg-purple-50 hover:bg-purple-100 dark:bg-[#3b0764] dark:hover:bg-[#4c1d95] border border-purple-200 dark:border-[#4c1d95] transition-all cursor-pointer shadow-sm group"
                   title="Open user profile menu"
                 >
                   {user.avatarUrl ? (
-                    <img src={user.avatarUrl} alt={user.name} className="w-8 h-8 rounded-xl object-cover ring-2 ring-emerald-500/20" />
+                    <img src={user.avatarUrl} alt={user.name} className="w-8 h-8 rounded-xl object-cover ring-2 ring-purple-500/20" />
                   ) : (
-                    <div className="w-8 h-8 rounded-xl bg-[#105e38] text-white flex items-center justify-center font-extrabold text-xs shadow-inner">
+                    <div className="w-8 h-8 rounded-xl bg-purple-600 text-white flex items-center justify-center font-extrabold text-xs shadow-inner">
                       {user.name.charAt(0).toUpperCase()}
                     </div>
                   )}
-                  <span className="text-xs font-extrabold text-slate-800 dark:text-emerald-100 max-w-[100px] truncate hidden sm:inline-block pl-1">
+                  <span className="text-xs font-extrabold text-slate-800 dark:text-purple-100 max-w-[100px] truncate hidden sm:inline-block pl-1">
                     {user.name}
                   </span>
-                  <ChevronDown className={`w-4 h-4 text-emerald-600 dark:text-emerald-400 transition-transform duration-200 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-purple-600 dark:text-purple-300 transition-transform duration-200 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {/* Dropdown Menu */}
                 {isProfileMenuOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setIsProfileMenuOpen(false)} />
-                    <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white dark:bg-[#0d3f26] border border-slate-200 dark:border-[#1b5e39] shadow-2xl p-2 z-50 animate-fadeIn">
+                    <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white dark:bg-[#24123e] border border-purple-200 dark:border-[#4c1d95] shadow-2xl p-2 z-50 animate-fadeIn">
                       {/* Account Info Header */}
-                      <div className="px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-[#092c1a] border border-slate-100 dark:border-[#1b5e39]/60 mb-1.5">
+                      <div className="px-3 py-2.5 rounded-xl bg-purple-50/60 dark:bg-[#180e29] border border-purple-100 dark:border-[#4c1d95]/60 mb-1.5">
                         <div className="flex items-center gap-2.5">
                           {user.avatarUrl ? (
                             <img src={user.avatarUrl} alt={user.name} className="w-9 h-9 rounded-xl object-cover shrink-0" />
                           ) : (
-                            <div className="w-9 h-9 rounded-xl bg-[#105e38] text-white flex items-center justify-center font-bold text-sm shrink-0">
+                            <div className="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-sm shrink-0">
                               {user.name.charAt(0).toUpperCase()}
                             </div>
                           )}
                           <div className="overflow-hidden">
                             <p className="font-extrabold text-xs text-slate-900 dark:text-white truncate">{user.name}</p>
-                            <p className="text-[11px] text-slate-500 dark:text-[#9ed4b3] truncate">{user.email}</p>
+                            <p className="text-[11px] text-purple-700/80 dark:text-purple-300/80 truncate">{user.email}</p>
                           </div>
                         </div>
                         {user.provider && (
                           <div className="mt-2 flex items-center gap-1.5">
-                            <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase rounded bg-emerald-100 dark:bg-[#0f4c2e] text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-[#1b5e39]">
+                            <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase rounded bg-purple-100 dark:bg-[#3b0764] text-purple-900 dark:text-purple-200 border border-purple-300 dark:border-[#4c1d95]">
                               {user.provider} Auth
                             </span>
                           </div>
@@ -218,9 +219,9 @@ export const Navbar: React.FC = () => {
                             setIsProfileMenuOpen(false);
                             resetExam();
                           }}
-                          className="w-full px-3 py-2 rounded-xl text-slate-700 dark:text-emerald-100 hover:bg-slate-100 dark:hover:bg-[#135433] flex items-center gap-2.5 transition-colors cursor-pointer text-left"
+                          className="w-full px-3 py-2 rounded-xl text-slate-700 dark:text-purple-100 hover:bg-purple-50 dark:hover:bg-[#3b0764] flex items-center gap-2.5 transition-colors cursor-pointer text-left"
                         >
-                          <LayoutDashboard className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                          <LayoutDashboard className="w-4 h-4 text-purple-600 dark:text-purple-300" />
                           <span>Dashboard Portal</span>
                         </button>
 
@@ -229,9 +230,9 @@ export const Navbar: React.FC = () => {
                             setIsProfileMenuOpen(false);
                             openSettingsModal();
                           }}
-                          className="w-full px-3 py-2 rounded-xl text-slate-700 dark:text-emerald-100 hover:bg-slate-100 dark:hover:bg-[#135433] flex items-center gap-2.5 transition-colors cursor-pointer text-left"
+                          className="w-full px-3 py-2 rounded-xl text-slate-700 dark:text-purple-100 hover:bg-purple-50 dark:hover:bg-[#3b0764] flex items-center gap-2.5 transition-colors cursor-pointer text-left"
                         >
-                          <Settings className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                          <Settings className="w-4 h-4 text-purple-600 dark:text-purple-300" />
                           <span>Simulator Settings</span>
                         </button>
 
@@ -241,15 +242,15 @@ export const Navbar: React.FC = () => {
                               setIsProfileMenuOpen(false);
                               setView('analytics');
                             }}
-                            className="w-full px-3 py-2 rounded-xl text-slate-700 dark:text-emerald-100 hover:bg-slate-100 dark:hover:bg-[#135433] flex items-center gap-2.5 transition-colors cursor-pointer text-left"
+                            className="w-full px-3 py-2 rounded-xl text-slate-700 dark:text-purple-100 hover:bg-purple-50 dark:hover:bg-[#3b0764] flex items-center gap-2.5 transition-colors cursor-pointer text-left"
                           >
-                            <BarChart3 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                            <BarChart3 className="w-4 h-4 text-purple-600 dark:text-purple-300" />
                             <span>Performance Analytics ({examHistory.length})</span>
                           </button>
                         )}
                       </div>
 
-                      <div className="my-1.5 border-t border-slate-100 dark:border-[#1b5e39]"></div>
+                      <div className="my-1.5 border-t border-purple-100 dark:border-[#4c1d95]"></div>
 
                       {/* Logout Action */}
                       <button
@@ -270,13 +271,13 @@ export const Navbar: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleOpenAuth('login')}
-                  className="px-4 py-1.5 text-xs font-extrabold rounded-xl border border-emerald-700 dark:border-[#229158] text-emerald-800 dark:text-emerald-200 hover:bg-emerald-50 dark:hover:bg-[#0f4c2e] transition-all cursor-pointer"
+                  className="px-4 py-1.5 text-xs font-extrabold rounded-xl border border-purple-600 dark:border-purple-400 text-purple-800 dark:text-purple-200 hover:bg-purple-50 dark:hover:bg-[#3b0764] transition-all cursor-pointer"
                 >
                   Login
                 </button>
                 <button
                   onClick={() => handleOpenAuth('signup')}
-                  className="px-4 py-1.5 text-xs font-extrabold rounded-xl bg-[#105e38] hover:bg-[#147244] text-white shadow-sm transition-all cursor-pointer"
+                  className="px-4 py-1.5 text-xs font-extrabold rounded-xl bg-purple-600 hover:bg-purple-700 text-white shadow-sm transition-all cursor-pointer"
                 >
                   Sign up
                 </button>
@@ -288,7 +289,7 @@ export const Navbar: React.FC = () => {
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-xl bg-slate-100 dark:bg-[#0d3f26] text-slate-800 dark:text-emerald-100 hover:bg-slate-200 dark:hover:bg-[#135433] border border-slate-200 dark:border-[#1b5e39] transition-all cursor-pointer"
+              className="p-2 rounded-xl bg-purple-50 dark:bg-[#24123e] text-slate-800 dark:text-purple-100 hover:bg-purple-100 dark:hover:bg-[#3b0764] border border-purple-200 dark:border-[#4c1d95] transition-all cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -298,11 +299,11 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Drawer Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-[#092c1a] border-b border-slate-200 dark:border-[#1b5e39] px-4 py-4 space-y-3 shadow-lg">
+          <div className="md:hidden bg-white dark:bg-[#180e29] border-b border-purple-200 dark:border-[#4c1d95] px-4 py-4 space-y-3 shadow-lg">
             {user ? (
-              <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50 dark:bg-[#0f4c2e] border border-emerald-200 dark:border-[#1b5e39] text-xs">
-                <span className="font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
-                  <User className="w-4 h-4 text-emerald-600" /> Logged in as {user.name} {user.provider ? `(${user.provider})` : ''}
+              <div className="flex items-center justify-between p-3 rounded-xl bg-purple-50 dark:bg-[#3b0764] border border-purple-200 dark:border-[#4c1d95] text-xs">
+                <span className="font-bold text-purple-900 dark:text-purple-200 flex items-center gap-1.5">
+                  <User className="w-4 h-4 text-purple-600" /> Logged in as {user.name} {user.provider ? `(${user.provider})` : ''}
                 </span>
                 <button
                   onClick={handleLogout}
@@ -315,13 +316,13 @@ export const Navbar: React.FC = () => {
               <div className="grid grid-cols-2 gap-2 pt-1">
                 <button
                   onClick={() => handleOpenAuth('login')}
-                  className="py-2.5 px-3 text-xs font-extrabold rounded-xl border border-emerald-700 dark:border-[#229158] text-emerald-800 dark:text-emerald-200 hover:bg-emerald-50"
+                  className="py-2.5 px-3 text-xs font-extrabold rounded-xl border border-purple-600 dark:border-purple-400 text-purple-800 dark:text-purple-200 hover:bg-purple-50"
                 >
                   Login
                 </button>
                 <button
                   onClick={() => handleOpenAuth('signup')}
-                  className="py-2.5 px-3 text-xs font-extrabold rounded-xl bg-[#105e38] hover:bg-[#147244] text-white shadow-sm"
+                  className="py-2.5 px-3 text-xs font-extrabold rounded-xl bg-purple-600 hover:bg-purple-700 text-white shadow-sm"
                 >
                   Sign up
                 </button>
@@ -331,7 +332,7 @@ export const Navbar: React.FC = () => {
             {view !== 'landing' && (
               <button
                 onClick={handleGoBack}
-                className="w-full py-2.5 px-3 rounded-xl bg-[#105e38] hover:bg-[#147244] text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                className="w-full py-2.5 px-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Go Back</span>
@@ -344,12 +345,13 @@ export const Navbar: React.FC = () => {
                   setView('analytics');
                   setIsMenuOpen(false);
                 }}
-                className="w-full py-2.5 px-3 rounded-xl bg-emerald-50 dark:bg-[#0f4c2e] text-emerald-800 dark:text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 border border-emerald-200 dark:border-[#1b5e39]"
+                className="w-full py-2.5 px-3 rounded-xl bg-purple-50 dark:bg-[#3b0764] text-purple-900 dark:text-purple-200 font-bold text-xs flex items-center justify-center gap-2 border border-purple-200 dark:border-[#4c1d95]"
               >
-                <BarChart3 className="w-4 h-4 text-emerald-600" />
+                <BarChart3 className="w-4 h-4 text-purple-600" />
                 <span>View Performance Analytics ({examHistory.length})</span>
               </button>
             )}
+
 
             {/* Mobile Theme Toggle */}
             <div className="flex items-center gap-2 pt-2 border-t border-slate-200 dark:border-[#1b5e39]">
