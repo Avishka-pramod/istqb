@@ -147,6 +147,89 @@ app.post('/api/generate-exam', async (req, res) => {
   });
 });
 
+app.post('/api/send-email', async (req, res) => {
+  const { recipientEmail, reportSummary, session, userName } = req.body || {};
+
+  if (!recipientEmail) {
+    return res.status(400).json({ success: false, error: 'Recipient email is required.' });
+  }
+
+  try {
+    let transporter;
+    let previewUrl = null;
+
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+
+    if (smtpHost && smtpUser && smtpPass) {
+      transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: Number(smtpPort) || 587,
+        secure: Number(smtpPort) === 465,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass
+        }
+      });
+    } else {
+      // Create ethereal test account for instant delivery testing
+      const testAccount = await nodemailer.createTestAccount();
+      transporter = nodemailer.createTransport({
+        host: testAccount.smtp.host,
+        port: testAccount.smtp.port,
+        secure: testAccount.smtp.secure,
+        auth: {
+          user: testAccount.user,
+          pass: testAccount.pass
+        }
+      });
+    }
+
+    const htmlContent = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #faf5ff; border-radius: 16px; border: 1px solid #e9d5ff;">
+        <h2 style="color: #7c3aed; text-align: center;">ISTQB CTFL v4.0 Exam Scorecard</h2>
+        <div style="background-color: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #e9d5ff;">
+          <p><strong>Candidate Name:</strong> ${userName || recipientEmail.split('@')[0]}</p>
+          <p><strong>Recipient Email:</strong> ${recipientEmail}</p>
+          <p><strong>Scorecard Result:</strong> ${session?.passed ? '<span style="color: #16a34a; font-weight: bold;">PASSED</span>' : '<span style="color: #dc2626; font-weight: bold;">DID NOT PASS</span>'}</p>
+          <pre style="background: #faf5ff; padding: 15px; border-radius: 8px; font-size: 12px; border: 1px solid #e9d5ff; white-space: pre-wrap;">${reportSummary || ''}</pre>
+        </div>
+        <p style="text-align: center; font-size: 12px; color: #7e22ce; margin-top: 15px;">ISTQB CTFL v4.0 Exam Simulator Portal</p>
+      </div>
+    `;
+
+    const info = await transporter.sendMail({
+      from: '"ISTQB CTFL Simulator" <scorecard@istqb-portal.com>',
+      to: recipientEmail,
+      subject: `ISTQB CTFL v4.0 Exam Scorecard - ${session?.passed ? 'PASSED' : 'Result'}`,
+      text: reportSummary || 'ISTQB Scorecard Summary',
+      html: htmlContent
+    });
+
+    if (!smtpHost) {
+      previewUrl = nodemailer.getTestMessageUrl(info);
+    }
+
+    console.log(`[Backend Email] ✅ Scorecard email sent to ${recipientEmail}. MessageId: ${info.messageId}`);
+    if (previewUrl) {
+      console.log(`[Backend Email] 🔗 Preview URL: ${previewUrl}`);
+    }
+
+    return res.json({
+      success: true,
+      message: `Scorecard email dispatched to ${recipientEmail}`,
+      previewUrl,
+      isLiveSmtp: Boolean(smtpHost)
+    });
+  } catch (err) {
+    console.error('[Backend Email] Error dispatching email:', err);
+    return res.status(500).json({ success: false, error: err.message || 'Failed to dispatch email' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`[ISTQB Backend Server] Listening on http://localhost:${PORT}`);
 });
+
