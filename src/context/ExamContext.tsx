@@ -7,10 +7,12 @@ import { triggerGoogleOAuthPopup, triggerFacebookOAuthPopup } from '../services/
 import { sendExamScorecardEmail } from '../services/emailService';
 
 type ViewType = 'landing' | 'exam' | 'results' | 'analytics';
+export type ThemeMode = 'aurora' | 'dark' | 'light';
 
 interface ExamContextType {
-  theme: 'dark' | 'light';
+  theme: ThemeMode;
   toggleTheme: () => void;
+  setTheme: (t: ThemeMode) => void;
   view: ViewType;
   setView: (v: ViewType) => void;
   goBack: () => void;
@@ -59,17 +61,14 @@ const CONFIG_STORAGE_KEY = 'istqb_ctfl_config';
 const USER_STORAGE_KEY = 'istqb_ctfl_user_profile';
 const ACTIVE_SESSION_STORAGE_KEY = 'istqb_active_exam_session';
 
-const getSystemTheme = (): 'dark' | 'light' => {
-  if (typeof window !== 'undefined' && window.matchMedia) {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  return 'dark';
+const getSystemTheme = (): ThemeMode => {
+  return 'aurora';
 };
 
 export const ExamProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    const saved = localStorage.getItem(THEME_STORAGE_KEY);
-    return saved === 'dark' || saved === 'light' ? saved : getSystemTheme();
+  const [theme, setThemeState] = useState<ThemeMode>(() => {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode;
+    return saved === 'aurora' || saved === 'dark' || saved === 'light' ? saved : getSystemTheme();
   });
 
   const [view, setViewState] = useState<ViewType>('landing');
@@ -160,47 +159,39 @@ export const ExamProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [questions, currentQuestionIndex, userAnswers, timeRemainingSeconds, isTimerRunning]);
 
-  // Dynamic system theme change listener (fallback if user hasn't explicitly toggled theme)
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return;
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
-      const saved = localStorage.getItem(THEME_STORAGE_KEY);
-      if (!saved) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleSystemThemeChange);
-    return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
-  }, []);
-
   // Sync theme class to document root & body & localStorage
   useEffect(() => {
     const root = document.documentElement;
     const body = document.body;
 
-    if (theme === 'dark') {
+    root.classList.remove('aurora', 'dark', 'light');
+    body.classList.remove('aurora', 'dark', 'light');
+
+    if (theme === 'aurora') {
+      root.classList.add('aurora', 'dark');
+      body.classList.add('aurora', 'dark');
+    } else if (theme === 'dark') {
       root.classList.add('dark');
-      root.classList.remove('light');
       body.classList.add('dark');
-      body.classList.remove('light');
     } else {
-      root.classList.remove('dark');
       root.classList.add('light');
-      body.classList.remove('dark');
       body.classList.add('light');
     }
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => {
-      const nextTheme = prev === 'dark' ? 'light' : 'dark';
+    setThemeState((prev) => {
+      const nextTheme: ThemeMode = prev === 'aurora' ? 'dark' : prev === 'dark' ? 'light' : 'aurora';
       localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
       return nextTheme;
     });
   };
+
+  const setTheme = (newTheme: ThemeMode) => {
+    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    setThemeState(newTheme);
+  };
+
 
   // Custom setView pushing into history stack and browser history
   const setView = (newView: ViewType) => {
@@ -642,6 +633,7 @@ export const ExamProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         theme,
         toggleTheme,
+        setTheme,
         view,
         setView,
         goBack,

@@ -3,7 +3,7 @@ import { useExam } from '../context/ExamContext';
 import { AuthModal } from './AuthModal';
 import { LogoutConfirmModal } from './LogoutConfirmModal';
 import { SettingsModal } from './SettingsModal';
-import { Sun, Moon, Award, RotateCcw, Menu, X, BarChart3, User, LogOut, ArrowLeft, ChevronDown, Settings, LayoutDashboard } from 'lucide-react';
+import { Sun, Moon, Award, RotateCcw, Menu, X, BarChart3, User, LogOut, ArrowLeft, ChevronDown, Settings, LayoutDashboard, Sparkles } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const {
@@ -134,25 +134,31 @@ export const Navbar: React.FC = () => {
               </span>
             )}
 
-            {/* INTERACTIVE DARK / LIGHT THEME TOGGLE BUTTON */}
+            {/* INTERACTIVE AURORA / DARK / LIGHT THEME TOGGLE BUTTON */}
             <button
               onClick={toggleTheme}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-[#0d3f26] text-slate-700 dark:text-emerald-100 hover:bg-slate-200 dark:hover:bg-[#135433] border border-slate-200 dark:border-[#1b5e39] text-xs font-bold transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-[#0d3f26] text-slate-700 dark:text-emerald-100 hover:bg-slate-200 dark:hover:bg-[#135433] border border-slate-200 dark:border-[#1b5e39] text-xs font-bold transition-all cursor-pointer shadow-sm"
               aria-label="Toggle Theme"
-              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              title={`Current Theme: ${theme.toUpperCase()}. Click to switch theme.`}
             >
-              {theme === 'dark' ? (
+              {theme === 'aurora' ? (
                 <>
-                  <Sun className="w-4 h-4 text-amber-400" />
-                  <span>Light</span>
+                  <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
+                  <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400 bg-clip-text text-transparent font-extrabold">Aurora</span>
+                </>
+              ) : theme === 'dark' ? (
+                <>
+                  <Moon className="w-4 h-4 text-emerald-400" />
+                  <span>Dark</span>
                 </>
               ) : (
                 <>
-                  <Moon className="w-4 h-4 text-slate-700" />
-                  <span>Dark</span>
+                  <Sun className="w-4 h-4 text-amber-500" />
+                  <span>Light</span>
                 </>
               )}
             </button>
+
 
             {/* PROFILE AVATAR & DROPDOWN MENU */}
             {user ? (
@@ -354,10 +360,25 @@ export const Navbar: React.FC = () => {
                 }}
                 className="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-[#0d3f26] text-slate-700 dark:text-emerald-100 font-bold text-xs flex items-center justify-center gap-2 border border-slate-200 dark:border-[#1b5e39] cursor-pointer"
               >
-                {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
-                <span>{theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}</span>
+                {theme === 'aurora' ? (
+                  <>
+                    <Sparkles className="w-4 h-4 text-cyan-400" />
+                    <span>Theme: Aurora Borealis</span>
+                  </>
+                ) : theme === 'dark' ? (
+                  <>
+                    <Moon className="w-4 h-4 text-emerald-400" />
+                    <span>Theme: Dark Forest</span>
+                  </>
+                ) : (
+                  <>
+                    <Sun className="w-4 h-4 text-amber-500" />
+                    <span>Theme: Light Mode</span>
+                  </>
+                )}
               </button>
             </div>
+
           </div>
         )}
       </header>

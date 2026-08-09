@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useExam } from '../context/ExamContext';
-import { X, Settings, Moon, Sun, ShieldCheck, Check } from 'lucide-react';
+import { X, Settings, Moon, Sun, ShieldCheck, Check, Sparkles } from 'lucide-react';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -8,7 +8,7 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
-  const { theme, toggleTheme } = useExam();
+  const { theme, setTheme } = useExam();
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   if (!isOpen) return null;
@@ -70,38 +70,48 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
             <label className="block font-extrabold uppercase tracking-wider text-slate-600 dark:text-[#9ed4b3]">
               Application Color Theme
             </label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-3 gap-2.5">
               <button
                 type="button"
-                onClick={() => {
-                  if (theme !== 'light') toggleTheme();
-                }}
-                className={`py-4 px-4 rounded-2xl border font-bold flex flex-col items-center justify-center gap-2 transition-all cursor-pointer ${
-                  theme === 'light'
-                    ? 'bg-emerald-50 border-emerald-500 text-emerald-900 shadow-sm ring-2 ring-emerald-500/20'
+                onClick={() => setTheme('aurora')}
+                className={`py-3.5 px-2.5 rounded-2xl border font-bold flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  theme === 'aurora'
+                    ? 'bg-slate-900 border-cyan-400 text-cyan-300 shadow-md ring-2 ring-cyan-400/30'
                     : 'bg-slate-50 dark:bg-[#092c1a] border-slate-200 dark:border-[#1b5e39] text-slate-600 dark:text-[#9ed4b3] hover:border-slate-300'
                 }`}
               >
-                <Sun className="w-6 h-6 text-amber-500" />
-                <span className="text-xs font-extrabold">Light Mode</span>
+                <Sparkles className="w-5 h-5 text-cyan-400 animate-pulse" />
+                <span className="text-[11px] font-extrabold">Aurora</span>
               </button>
 
               <button
                 type="button"
-                onClick={() => {
-                  if (theme !== 'dark') toggleTheme();
-                }}
-                className={`py-4 px-4 rounded-2xl border font-bold flex flex-col items-center justify-center gap-2 transition-all cursor-pointer ${
+                onClick={() => setTheme('dark')}
+                className={`py-3.5 px-2.5 rounded-2xl border font-bold flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   theme === 'dark'
-                    ? 'bg-[#0f4c2e] border-emerald-400 text-white shadow-sm ring-2 ring-emerald-400/20'
+                    ? 'bg-[#0f4c2e] border-emerald-400 text-white shadow-md ring-2 ring-emerald-400/30'
                     : 'bg-slate-50 dark:bg-[#092c1a] border-slate-200 dark:border-[#1b5e39] text-slate-600 dark:text-[#9ed4b3] hover:border-slate-300'
                 }`}
               >
-                <Moon className="w-6 h-6 text-emerald-300" />
-                <span className="text-xs font-extrabold">Dark Forest</span>
+                <Moon className="w-5 h-5 text-emerald-300" />
+                <span className="text-[11px] font-extrabold">Dark Forest</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setTheme('light')}
+                className={`py-3.5 px-2.5 rounded-2xl border font-bold flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  theme === 'light'
+                    ? 'bg-emerald-50 border-emerald-500 text-emerald-900 shadow-md ring-2 ring-emerald-500/30'
+                    : 'bg-slate-50 dark:bg-[#092c1a] border-slate-200 dark:border-[#1b5e39] text-slate-600 dark:text-[#9ed4b3] hover:border-slate-300'
+                }`}
+              >
+                <Sun className="w-5 h-5 text-amber-500" />
+                <span className="text-[11px] font-extrabold">Light Mode</span>
               </button>
             </div>
           </div>
+
 
           {/* Footer Actions */}
           <div className="pt-4 border-t border-slate-100 dark:border-[#1b5e39] flex items-center justify-end gap-3">
