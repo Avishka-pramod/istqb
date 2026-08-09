@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { X, Mail, Check, Send, AlertCircle } from 'lucide-react';
+import { X, Mail, Check, Send, AlertCircle, ExternalLink, Copy } from 'lucide-react';
 import { useExam } from '../context/ExamContext';
-import { sendExamScorecardEmail } from '../services/emailService';
+import {
+  sendExamScorecardEmail,
+  generateScorecardMailtoUrl,
+  generateScorecardReportText
+} from '../services/emailService';
 
 interface EmailReportModalProps {
   isOpen: boolean;
@@ -12,29 +16,44 @@ export const EmailReportModal: React.FC<EmailReportModalProps> = ({ isOpen, onCl
   const { currentSession, user } = useExam();
   const [emailInput, setEmailInput] = useState(user?.email || '');
   const [sending, setSending] = useState(false);
-  const [sentSuccess, setSentSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   if (!isOpen || !currentSession) return null;
+
+  const mailtoUrl = generateScorecardMailtoUrl(currentSession, emailInput.trim() || 'student@istqb.edu', user);
+  const reportText = generateScorecardReportText(currentSession, emailInput.trim() || 'student@istqb.edu', user);
+
+  const handleCopyReport = () => {
+    navigator.clipboard.writeText(reportText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  const handleOpenEmailClient = () => {
+    window.location.href = mailtoUrl;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!emailInput.trim()) return;
 
     setSending(true);
-    setErrorMessage(null);
+    setStatusMessage(null);
 
     const result = await sendExamScorecardEmail(currentSession, emailInput.trim(), user);
 
     setSending(false);
     if (result.success) {
-      setSentSuccess(true);
-      setTimeout(() => {
-        setSentSuccess(false);
-        onClose();
-      }, 1500);
+      if (result.isSimulated) {
+        setStatusMessage(
+          'Notice: Live SMTP keys are not set in .env. Click "Open in Email App" to send via Outlook/Gmail instantly!'
+        );
+      } else {
+        setStatusMessage(`✅ Scorecard email sent to ${emailInput.trim()}`);
+      }
     } else {
-      setErrorMessage(result.error || 'Failed to send scorecard email.');
+      setStatusMessage(result.error || 'Failed to send scorecard email.');
     }
   };
 
@@ -76,84 +95,95 @@ export const EmailReportModal: React.FC<EmailReportModalProps> = ({ isOpen, onCl
         </div>
 
         {/* Modal Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs">
-          {sentSuccess ? (
-            <div className="p-4 rounded-2xl bg-purple-50 dark:bg-[#3b0764] border border-purple-300 dark:border-[#4c1d95] text-purple-900 dark:text-purple-200 font-extrabold flex items-center gap-3 animate-fadeIn">
-              <Check className="w-5 h-5 text-purple-600 dark:text-purple-300 shrink-0" />
-              <div>
-                <p className="text-sm font-bold">Scorecard Sent!</p>
-                <p className="text-[11px] font-medium text-purple-700 dark:text-purple-200/80">
-                  Full scorecard breakdown delivered to {emailInput}.
-                </p>
+        <div className="p-6 space-y-4 text-xs">
+          {/* Quick Options Bar */}
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handleOpenEmailClient}
+              className="w-1/2 py-2.5 px-3 rounded-xl bg-purple-50 hover:bg-purple-100 dark:bg-[#3b0764] dark:hover:bg-[#4c1d95] text-purple-900 dark:text-purple-100 font-extrabold border border-purple-200 dark:border-[#4c1d95] flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+            >
+              <ExternalLink className="w-4 h-4 text-purple-600 dark:text-purple-300" />
+              <span>Open in Email App</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleCopyReport}
+              className="w-1/2 py-2.5 px-3 rounded-xl bg-purple-50 hover:bg-purple-100 dark:bg-[#3b0764] dark:hover:bg-[#4c1d95] text-purple-900 dark:text-purple-100 font-extrabold border border-purple-200 dark:border-[#4c1d95] flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+            >
+              {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-purple-600 dark:text-purple-300" />}
+              <span>{copied ? 'Copied Text!' : 'Copy Scorecard'}</span>
+            </button>
+          </div>
+
+          {/* Status Alert Notice */}
+          {statusMessage && (
+            <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-xs font-semibold text-amber-900 dark:text-amber-300 flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 mt-0.5" />
+              <span>{statusMessage}</span>
+            </div>
+          )}
+
+          {/* Scorecard Quick Preview */}
+          <div className="p-4 rounded-2xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] space-y-2">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-bold text-slate-600 dark:text-[#c084fc]">Attempt Score:</span>
+              <span className="font-extrabold text-slate-900 dark:text-white">
+                {currentSession.score} / {currentSession.totalQuestions} ({Math.round((currentSession.score / currentSession.totalQuestions) * 100)}%)
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-bold text-slate-600 dark:text-[#c084fc]">Status:</span>
+              <span className={`font-extrabold ${currentSession.passed ? 'text-purple-600 dark:text-purple-300' : 'text-rose-600 dark:text-rose-400'}`}>
+                {currentSession.passed ? 'PASSED' : 'DID NOT PASS'}
+              </span>
+            </div>
+          </div>
+
+          {/* Form Direct Email Dispatch */}
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div>
+              <label className="block font-extrabold uppercase tracking-wider text-slate-600 dark:text-[#c084fc] mb-1.5">
+                Recipient Email Address
+              </label>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <input
+                  type="email"
+                  required
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  placeholder="student@istqb.edu"
+                  className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                />
               </div>
             </div>
-          ) : (
-            <>
-              {errorMessage && (
-                <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 text-xs font-semibold text-rose-800 dark:text-rose-300 flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
-                  <span>{errorMessage}</span>
-                </div>
-              )}
 
-              {/* Scorecard Quick Preview */}
-              <div className="p-4 rounded-2xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-600 dark:text-[#c084fc]">Attempt Score:</span>
-                  <span className="font-extrabold text-slate-900 dark:text-white">
-                    {currentSession.score} / {currentSession.totalQuestions} ({Math.round((currentSession.score / currentSession.totalQuestions) * 100)}%)
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-600 dark:text-[#c084fc]">Status:</span>
-                  <span className={`font-extrabold ${currentSession.passed ? 'text-purple-600 dark:text-purple-300' : 'text-rose-600 dark:text-rose-400'}`}>
-                    {currentSession.passed ? 'PASSED' : 'DID NOT PASS'}
-                  </span>
-                </div>
-              </div>
+            {/* Footer Actions */}
+            <div className="pt-2 border-t border-purple-100 dark:border-[#4c1d95] flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2.5 rounded-xl border border-purple-200 dark:border-[#4c1d95] text-slate-700 dark:text-purple-200 font-extrabold text-xs hover:bg-purple-50 dark:hover:bg-[#3b0764] transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500"
+              >
+                Cancel
+              </button>
 
-              {/* Email Input */}
-              <div>
-                <label className="block font-extrabold uppercase tracking-wider text-slate-600 dark:text-[#c084fc] mb-1.5">
-                  Recipient Email Address
-                </label>
-                <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-                  <input
-                    type="email"
-                    required
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
-                    placeholder="student@istqb.edu"
-                    className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl bg-purple-50/50 dark:bg-[#180e29] border border-purple-200 dark:border-[#4c1d95] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
-                  />
-                </div>
-              </div>
-
-              {/* Footer Actions */}
-              <div className="pt-3 border-t border-purple-100 dark:border-[#4c1d95] flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-4 py-2.5 rounded-xl border border-purple-200 dark:border-[#4c1d95] text-slate-700 dark:text-purple-200 font-extrabold text-xs hover:bg-purple-50 dark:hover:bg-[#3b0764] transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  disabled={sending}
-                  className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs shadow-md border border-purple-500 transition-all flex items-center gap-2 cursor-pointer active:scale-98 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-purple-400"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>{sending ? 'Dispatching Email...' : 'Send Scorecard Email'}</span>
-                </button>
-              </div>
-            </>
-          )}
-        </form>
+              <button
+                type="submit"
+                disabled={sending}
+                className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs shadow-md border border-purple-500 transition-all flex items-center gap-2 cursor-pointer active:scale-98 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-purple-400"
+              >
+                <Send className="w-4 h-4" />
+                <span>{sending ? 'Dispatching...' : 'Send Direct Email'}</span>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
 };
+
 
