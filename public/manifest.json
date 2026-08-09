@@ -1,0 +1,16 @@
+{
+  "short_name": "ISTQB CTFL",
+  "name": "ISTQB CTFL v4.0 Exam Simulator",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#092c1a",
+  "theme_color": "#105e38",
+  "display": "standalone",
+  "orientation": "portrait"
+}
